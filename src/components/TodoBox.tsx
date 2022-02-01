@@ -4,12 +4,14 @@ import { TodoHeader } from './TodoHeader';
 import { TodoList } from './TodoList';
 import styled from 'styled-components';
 import { AddButton } from './AddButton';
-
+interface Props {
+  todos: { id: number; text: string; isChecked: boolean }[] | [];
+}
 export const TodoBox = () => {
-  type todo = string[];
-  const [todos, setTodos] = useState<todo>([]);
+  const [todos, setTodos] = useState<Props['todos']>([]);
   const [inputValue, setInputValue] = useState('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [checkedRate, setCheckedRate] = useState(0);
   useEffect(() => {
     if (todos.length === 0) {
       let localTodos = localStorage.getItem('todos');
@@ -19,10 +21,21 @@ export const TodoBox = () => {
         return;
       }
     }
-  }, []);
+  }, [todos.length]);
+  console.log(checkedRate);
+  useEffect(() => {
+    const calcCheckedRate = () => {
+      let checkedCount = todos.filter((todo) => todo['isChecked']).length;
+      let totalRate = Math.floor((checkedCount / todos.length) * 100);
+      console.log(checkedCount, todos.length);
+      setCheckedRate(totalRate);
+      return;
+    };
+    calcCheckedRate();
+  }, [todos]);
   return (
     <TodoContainer>
-      <TodoHeader todoCount={todos.length} />
+      <TodoHeader checkedRate={checkedRate} />
       <TodoList todos={todos} setTodos={setTodos} />
       <TodoForm
         inputValue={inputValue}

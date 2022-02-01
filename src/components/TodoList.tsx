@@ -2,17 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { LAYOUT } from 'constants/';
 import { Todo } from './Todo';
-type Props = {
-  todos: string[];
-  setTodos: (val: string[]) => void;
-};
+interface Props {
+  todos: { id: number; text: string; isChecked: boolean }[] | [];
+  setTodos: (val: any) => void;
+}
 export const TodoList = ({ todos, setTodos }: Props) => {
   return (
     <List>
       <TodoUl>
         {todos.length > 0 ? (
           todos.map((todo, i) => (
-            <Todo key={i} todo={todo} setTodos={setTodos} todos={todos} />
+            <Todo key={i} setTodos={setTodos} todos={todos} todo={todo} />
           ))
         ) : (
           <NoTodo>오늘의 할 일을 기록해보세요!</NoTodo>

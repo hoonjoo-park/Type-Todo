@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { getDate } from 'utils/getDate';
 
 interface Props {
-  todoCount: number;
+  checkedRate: number;
 }
-export const TodoHeader = ({ todoCount }: Props) => {
+export const TodoHeader = ({ checkedRate }: Props) => {
   type todo = { year: number; month: number; date: string };
   const [today, setToday] = useState<todo | null>(null);
   useEffect(() => {
@@ -29,7 +29,9 @@ export const TodoHeader = ({ todoCount }: Props) => {
           <span>Loading...</span>
         )}
       </DateBox>
-      <Task>{todoCount}</Task>
+      <Task checkedRate={checkedRate}>
+        <span>{isNaN(checkedRate) ? 0 : checkedRate}%</span>
+      </Task>
     </Header>
   );
 };
@@ -62,6 +64,30 @@ const YearMonth = styled.div`
   font-weight: 500;
   color: ${COLOR.main_light};
 `;
-const Task = styled.div`
-  font-size: 1.2rem;
+const Task = styled.div<{ checkedRate: number }>`
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 0.7rem;
+  font-weight: 900;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  background: ${(props) =>
+    `conic-gradient(#6e7fff ${props.checkedRate * 3.6}deg, ${
+      COLOR.main_light
+    } ${props.checkedRate * 3.6}deg)`};
+  &::before {
+    content: '';
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    background-color: #ffffff;
+    border-radius: 50%;
+  }
+  span {
+    position: relative;
+    transform: translateY(1.5px);
+  }
 `;

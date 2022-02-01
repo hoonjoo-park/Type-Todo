@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   MdOutlineCheckBoxOutlineBlank,
@@ -6,29 +6,41 @@ import {
   MdClose,
 } from 'react-icons/md';
 import { COLOR } from 'constants/';
-type Props = {
-  todos: string[];
-  todo: string;
-  setTodos: (val: string[]) => void;
-};
+
+interface Props {
+  todos: { id: number; text: string; isChecked: boolean }[] | [];
+  setTodos: (val: any) => void;
+  todo: { id: number; text: string; isChecked: boolean };
+}
+
 export const Todo = ({ todos, todo, setTodos }: Props) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
   const handleCheck = () => {
-    setIsChecked((prev) => !prev);
+    let newTodo = {
+      id: todo['id'],
+      text: todo['text'],
+      isChecked: !todo['isChecked'],
+    };
+    let todosWithoutThisTodo = todos.filter(
+      (item) => item['id'] !== todo['id']
+    );
+    let newTodos = [...todosWithoutThisTodo, newTodo];
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+    return;
   };
   const handleDelete = () => {
-    let newTodos: string[] = todos.filter((item) => item !== todo);
+    let newTodos: {}[] = todos.filter((item) => item['id'] !== todo['id']);
     setTodos(newTodos);
     localStorage.setItem('todos', JSON.stringify(newTodos));
   };
   return (
-    <Li onClick={handleCheck}>
-      {isChecked ? (
-        <MdCheckBox style={{ color: COLOR.main }} />
+    <Li>
+      {todo['isChecked'] ? (
+        <MdCheckBox style={{ color: COLOR.main }} onClick={handleCheck} />
       ) : (
-        <MdOutlineCheckBoxOutlineBlank />
+        <MdOutlineCheckBoxOutlineBlank onClick={handleCheck} />
       )}
-      <span className={isChecked ? 'checked' : ''}>{todo}</span>
+      <span className={todo['isChecked'] ? 'checked' : ''}>{todo['text']}</span>
       <MdClose onClick={handleDelete} />
     </Li>
   );
@@ -51,6 +63,7 @@ const Li = styled.li`
     margin-right: 0.8rem;
     font-size: 1.8rem;
     transition: all 0.2s ease-in;
+    z-index: 5;
   }
   &:hover svg:last-child {
     opacity: 1;

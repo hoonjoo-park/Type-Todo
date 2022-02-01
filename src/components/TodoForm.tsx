@@ -1,13 +1,15 @@
 import { COLOR } from 'constants/';
 import React from 'react';
 import styled from 'styled-components';
-type Props = {
+
+interface Props {
+  todos: { id: number; text: string; isChecked: boolean }[] | [];
+  setTodos: (val: any) => void;
   setInputValue: (val: string) => void;
   inputValue: string;
-  todos: string[];
-  setTodos: (val: string[]) => void;
   isOpen: boolean;
-};
+}
+
 export const TodoForm = ({
   inputValue,
   setInputValue,
@@ -24,8 +26,12 @@ export const TodoForm = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInputValue('');
-    setTodos([...todos, inputValue]);
-    localStorage.setItem('todos', JSON.stringify([...todos, inputValue]));
+    let newTodos = [
+      ...todos,
+      { id: todos.length, text: inputValue, isChecked: false },
+    ];
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
   };
   return (
     <From className={isOpen ? 'open' : ''} onSubmit={(e) => handleSubmit(e)}>
