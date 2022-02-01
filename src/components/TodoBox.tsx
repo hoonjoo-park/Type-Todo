@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TodoForm } from './TodoForm';
 import { TodoHeader } from './TodoHeader';
 import { TodoList } from './TodoList';
@@ -10,10 +10,21 @@ export const TodoBox = () => {
   const [todos, setTodos] = useState<todo>([]);
   const [inputValue, setInputValue] = useState('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  useEffect(() => {
+    if (todos.length === 0) {
+      let localTodos = localStorage.getItem('todos');
+      if (localTodos) {
+        let parsedTodos = JSON.parse(localTodos);
+        setTodos(parsedTodos);
+        return;
+      }
+    }
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
   return (
     <TodoContainer>
-      <TodoHeader />
-      <TodoList todos={todos} />
+      <TodoHeader todoCount={todos.length} />
+      <TodoList todos={todos} setTodos={setTodos} />
       <TodoForm
         inputValue={inputValue}
         setInputValue={setInputValue}

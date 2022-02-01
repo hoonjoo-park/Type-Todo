@@ -2,7 +2,11 @@ import { COLOR, LAYOUT, MONTHS } from 'constants/';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getDate } from 'utils/getDate';
-export const TodoHeader = () => {
+
+interface Props {
+  todoCount: number;
+}
+export const TodoHeader = ({ todoCount }: Props) => {
   type todo = { year: number; month: number; date: string };
   const [today, setToday] = useState<todo | null>(null);
   useEffect(() => {
@@ -25,7 +29,7 @@ export const TodoHeader = () => {
           <span>Loading...</span>
         )}
       </DateBox>
-      <Task>0</Task>
+      <Task>{todoCount}</Task>
     </Header>
   );
 };

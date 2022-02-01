@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 import { LAYOUT } from 'constants/';
+import { Todo } from './Todo';
 type Props = {
   todos: string[];
+  setTodos: (val: string[]) => void;
 };
-export const TodoList = ({ todos }: Props) => {
+export const TodoList = ({ todos, setTodos }: Props) => {
   return (
     <List>
       <TodoUl>
         {todos.length > 0 ? (
           todos.map((todo, i) => (
-            <Todo key={i}>
-              <MdOutlineCheckBoxOutlineBlank />
-              <span>{todo}</span>
-            </Todo>
+            <Todo key={i} todo={todo} setTodos={setTodos} todos={todos} />
           ))
         ) : (
           <NoTodo>오늘의 할 일을 기록해보세요!</NoTodo>
@@ -30,20 +28,6 @@ const List = styled.div`
 const TodoUl = styled.ul`
   width: 100%;
   height: 100%;
-`;
-const Todo = styled.li`
-  display: flex;
-  align-items: center;
-  height: 3.5rem;
-  cursor: pointer;
-  span {
-    font-size: 1.3rem;
-    transform: translateY(1px);
-  }
-  svg {
-    margin-right: 0.5rem;
-    font-size: 1.5rem;
-  }
 `;
 const NoTodo = styled.span`
   font-size: 1.2rem;
