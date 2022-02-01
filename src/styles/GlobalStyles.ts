@@ -29,7 +29,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	background-color : #ffffff;
+	background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+	color : #393E46;
 }
 ol, ul {
 	list-style: none;
