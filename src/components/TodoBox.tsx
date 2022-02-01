@@ -7,12 +7,18 @@ import { AddButton } from './AddButton';
 
 export const TodoBox = () => {
   type todo = string[];
-  const [todos, setTodos] = useState<todo | null>();
+  const [todos, setTodos] = useState<todo>([]);
+  const [inputValue, setInputValue] = useState('');
   return (
     <TodoContainer>
       <TodoHeader />
-      <TodoList />
-      <TodoForm />
+      <TodoList todos={todos} />
+      <TodoForm
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        setTodos={setTodos}
+        todos={todos}
+      />
       <AddButton />
     </TodoContainer>
   );

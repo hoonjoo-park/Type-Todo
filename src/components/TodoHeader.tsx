@@ -13,11 +13,17 @@ export const TodoHeader = () => {
   return (
     <Header>
       <DateBox>
-        <DateNum>{today!.date}</DateNum>
-        <YearMonth>
-          <span>{MONTHS[today!.month]}</span>
-          <span>{today!.year}</span>
-        </YearMonth>
+        {today ? (
+          <>
+            <DateNum>{today!.date}</DateNum>
+            <YearMonth>
+              <span>{MONTHS[today!.month]}</span>
+              <span>{today!.year}</span>
+            </YearMonth>
+          </>
+        ) : (
+          <span>Loading...</span>
+        )}
       </DateBox>
       <Task>0</Task>
     </Header>

@@ -1,14 +1,39 @@
 import { COLOR } from 'constants/';
 import React from 'react';
 import styled from 'styled-components';
-export const TodoForm = () => {
+type Props = {
+  setInputValue: (val: string) => void;
+  inputValue: string;
+  todos: string[];
+  setTodos: (val: string[]) => void;
+};
+export const TodoForm = ({
+  inputValue,
+  setInputValue,
+  setTodos,
+  todos,
+}: Props) => {
+  const handleTypeInput = (
+    e: React.ChangeEvent<Element> | React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    const target = e.target as HTMLInputElement;
+    setInputValue(target.value);
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setInputValue('');
+    setTodos([...todos, inputValue]);
+  };
   return (
-    <From>
+    <From onSubmit={(e) => handleSubmit(e)}>
       <input
         type='text'
         name='todoInput'
         id='todoInput'
         placeholder='오늘의 할 일을 입력해주세요 :)'
+        onChange={(e) => handleTypeInput(e)}
+        onKeyUp={(e) => handleTypeInput(e)}
+        value={inputValue}
       />
     </From>
   );
