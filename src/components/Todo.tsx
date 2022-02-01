@@ -19,6 +19,7 @@ export const Todo = ({ todos, todo, setTodos }: Props) => {
   const handleDelete = () => {
     let newTodos: string[] = todos.filter((item) => item !== todo);
     setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
   };
   return (
     <Li onClick={handleCheck}>

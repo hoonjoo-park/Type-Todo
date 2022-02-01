@@ -19,8 +19,7 @@ export const TodoBox = () => {
         return;
       }
     }
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  }, []);
   return (
     <TodoContainer>
       <TodoHeader todoCount={todos.length} />

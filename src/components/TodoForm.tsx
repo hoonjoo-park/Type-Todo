@@ -25,6 +25,7 @@ export const TodoForm = ({
     e.preventDefault();
     setInputValue('');
     setTodos([...todos, inputValue]);
+    localStorage.setItem('todos', JSON.stringify([...todos, inputValue]));
   };
   return (
     <From className={isOpen ? 'open' : ''} onSubmit={(e) => handleSubmit(e)}>
