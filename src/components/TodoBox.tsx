@@ -22,7 +22,6 @@ export const TodoBox = () => {
       }
     }
   }, [todos.length]);
-  console.log(checkedRate);
   useEffect(() => {
     const calcCheckedRate = () => {
       let checkedCount = todos.filter((todo) => todo['isChecked']).length;

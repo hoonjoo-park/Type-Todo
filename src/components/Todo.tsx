@@ -24,6 +24,7 @@ export const Todo = ({ todos, todo, setTodos }: Props) => {
       (item) => item['id'] !== todo['id']
     );
     let newTodos = [...todosWithoutThisTodo, newTodo];
+    newTodos.sort((a, b) => a['id'] - b['id']);
     setTodos(newTodos);
     localStorage.setItem('todos', JSON.stringify(newTodos));
     return;

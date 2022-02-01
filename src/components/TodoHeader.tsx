@@ -10,9 +10,13 @@ export const TodoHeader = ({ checkedRate }: Props) => {
   type todo = { year: number; month: number; date: string };
   const [today, setToday] = useState<todo | null>(null);
   useEffect(() => {
-    let stamp: Date = new Date();
-    let dateResult = getDate(stamp);
-    setToday(dateResult);
+    const datePick = () => {
+      let stamp: Date = new Date();
+      let dateResult = getDate(stamp);
+      setToday(dateResult);
+      return;
+    };
+    datePick();
   }, []);
   return (
     <Header>
@@ -73,7 +77,8 @@ const Task = styled.div<{ checkedRate: number }>`
   font-size: 0.7rem;
   font-weight: 900;
   border-radius: 50%;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+  background-color: ${COLOR.main_light};
   background: ${(props) =>
     `conic-gradient(#6e7fff ${props.checkedRate * 3.6}deg, ${
       COLOR.main_light
