@@ -2,10 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { MdOutlineAdd } from 'react-icons/md';
 import { COLOR } from 'constants/';
-
-export const AddButton = () => {
+interface Props {
+  setIsOpen: (val: any) => void;
+  isOpen: boolean;
+}
+export const AddButton = ({ setIsOpen, isOpen }: Props) => {
+  const handleRotate = () => {
+    setIsOpen((prev: any) => !prev);
+  };
   return (
-    <Btn>
+    <Btn className={isOpen ? 'rotate' : ''} onClick={handleRotate}>
       <MdOutlineAdd />
     </Btn>
   );
@@ -19,6 +25,11 @@ const Btn = styled.button`
   height: 4rem;
   background-color: ${COLOR.main};
   border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  &.rotate {
+    transform: translateX(-50%) rotate(45deg);
+    background-color: #d64f78;
+  }
   svg {
     font-size: 2rem;
     position: absolute;

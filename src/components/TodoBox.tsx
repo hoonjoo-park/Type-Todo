@@ -9,6 +9,7 @@ export const TodoBox = () => {
   type todo = string[];
   const [todos, setTodos] = useState<todo>([]);
   const [inputValue, setInputValue] = useState('');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <TodoContainer>
       <TodoHeader />
@@ -18,8 +19,9 @@ export const TodoBox = () => {
         setInputValue={setInputValue}
         setTodos={setTodos}
         todos={todos}
+        isOpen={isOpen}
       />
-      <AddButton />
+      <AddButton setIsOpen={setIsOpen} isOpen={isOpen} />
     </TodoContainer>
   );
 };

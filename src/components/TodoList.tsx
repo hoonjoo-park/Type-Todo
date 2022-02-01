@@ -25,7 +25,7 @@ export const TodoList = ({ todos }: Props) => {
 };
 const List = styled.div`
   flex: 1;
-  padding: 1.5em ${LAYOUT.padding};
+  padding: 2em ${LAYOUT.padding};
 `;
 const TodoUl = styled.ul`
   width: 100%;

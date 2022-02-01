@@ -6,12 +6,14 @@ type Props = {
   inputValue: string;
   todos: string[];
   setTodos: (val: string[]) => void;
+  isOpen: boolean;
 };
 export const TodoForm = ({
   inputValue,
   setInputValue,
   setTodos,
   todos,
+  isOpen,
 }: Props) => {
   const handleTypeInput = (
     e: React.ChangeEvent<Element> | React.KeyboardEvent<HTMLInputElement>
@@ -25,7 +27,7 @@ export const TodoForm = ({
     setTodos([...todos, inputValue]);
   };
   return (
-    <From onSubmit={(e) => handleSubmit(e)}>
+    <From className={isOpen ? 'open' : ''} onSubmit={(e) => handleSubmit(e)}>
       <input
         type='text'
         name='todoInput'
@@ -48,7 +50,11 @@ const From = styled.form`
   background-color: ${COLOR.main_light};
   overflow: hidden;
   bottom: 0;
-  /* max-height: 0; */
+  max-height: 0;
+  transition: all 0.2s ease-in-out;
+  &.open {
+    max-height: 9rem;
+  }
   input {
     width: 60%;
     height: 30%;
