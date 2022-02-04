@@ -28,9 +28,12 @@ const List = styled.div`
 const TodoUl = styled.ul`
   width: 100%;
   height: 100%;
+  max-height: 585px;
+  overflow-y: scroll;
 `;
 const NoTodo = styled.span`
+  display: block;
+  margin-top: 1rem;
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: center;
 `;

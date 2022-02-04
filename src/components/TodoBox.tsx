@@ -5,7 +5,7 @@ import { TodoList } from './TodoList';
 import styled from 'styled-components';
 import { AddButton } from './AddButton';
 interface Props {
-  todos: { id: number; text: string; isChecked: boolean }[] | [];
+  todos: { id: number; text: string; isChecked: boolean }[];
 }
 export const TodoBox = () => {
   const [todos, setTodos] = useState<Props['todos']>([]);

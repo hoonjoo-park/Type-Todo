@@ -25,10 +25,12 @@ export const TodoForm = ({
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!inputValue) return;
     setInputValue('');
+    const newId = todos.length === 0 ? 0 : todos[todos.length - 1]['id'] + 1;
     let newTodos = [
       ...todos,
-      { id: todos.length, text: inputValue, isChecked: false },
+      { id: newId, text: inputValue, isChecked: false },
     ];
     setTodos(newTodos);
     localStorage.setItem('todos', JSON.stringify(newTodos));
@@ -61,6 +63,7 @@ const From = styled.form`
   transition: all 0.2s ease-in-out;
   &.open {
     max-height: 9rem;
+    z-index: 10;
   }
   input {
     width: 60%;

@@ -26,6 +26,7 @@ const Btn = styled.button`
   background-color: ${COLOR.main};
   border-radius: 50%;
   transition: all 0.3s ease-in-out;
+  z-index: 15;
   &.rotate {
     transform: translateX(-50%) rotate(45deg);
     background-color: #d64f78;
