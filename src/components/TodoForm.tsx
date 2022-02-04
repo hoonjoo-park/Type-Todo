@@ -1,5 +1,5 @@
 import { COLOR } from 'constants/';
-import React from 'react';
+import React, { ReactElement, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -23,6 +23,8 @@ export const TodoForm = ({
     const target = e.target as HTMLInputElement;
     setInputValue(target.value);
   };
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputValue) return;
@@ -35,6 +37,13 @@ export const TodoForm = ({
     setTodos(newTodos);
     localStorage.setItem('todos', JSON.stringify(newTodos));
   };
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
   return (
     <From className={isOpen ? 'open' : ''} onSubmit={(e) => handleSubmit(e)}>
       <input
@@ -45,6 +54,7 @@ export const TodoForm = ({
         onChange={(e) => handleTypeInput(e)}
         onKeyUp={(e) => handleTypeInput(e)}
         value={inputValue}
+        ref={inputRef}
       />
     </From>
   );
